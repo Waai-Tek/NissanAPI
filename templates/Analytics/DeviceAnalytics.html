@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    />
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Poppins:wght@200;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+      html{
+        scrollbar-width: none;
+        overflow: auto hidden;
+      }
+      body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #fcfcfc;
+        overflow-x: hidden;
+      }
+      p{
+          margin: 0;
+          line-height: 1.1;
+      }
+
+      .analytics__heading { 
+        font-family: Roboto;
+        font-size: 30px;
+        font-weight: 700;
+        padding-top: 30px;
+        padding-bottom: 10px;
+      }
+      .analytics__card {
+        padding: 5px;
+        background-color: #fff;
+        box-shadow: 0px 0px 26px -2px rgba(0, 0, 0, 0.18);
+        border-radius: 15px;
+      }
+      .analytics__enq_count__heading {
+        font-family: Roboto;
+        font-size: 25px;
+        font-weight: 700;
+      }
+      .analytics__enq_count{
+        font-family: Roboto;
+        font-size: 35px;
+        font-weight: 700;
+        color:#008000;
+      }
+      .analytics__enq_count__heading .icon_wrapper{
+        border-radius: 50%;
+        background-color: rgba(0, 128, 0, 0.14);
+        text-align: center;
+        display: inline-flex;
+        width: 45px;
+        height: 45px;
+        justify-content: center;
+        align-items: center;
+      }
+   
+      .analytics__enq_count__heading .icon{
+        font-size: 25px;
+        color: #008000;
+      }
+      .since_date {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 600;
+        color: #6f6767;
+      }
+     .since_date .icon_wrapper{
+        border-radius: 50%;
+        background-color: #EEEEEE;
+        text-align: center;
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        top: 0!important;
+        border-color: #eee;
+      }
+      .analytics__card .icon_wrapper{
+          position: relative;
+      }
+        .since_date .icon{
+            font-size: 20px;
+            color: #808080;
+         }
+         .analytics__click{
+            font-family: Roboto;
+            font-weight: 600;
+            min-width: 250px;
+            height: 120px;
+            font-size: 16px;
+            padding: 10px;
+         }
+         .divClass1 {
+          display: flex;
+          align-items: center;
+          padding-bottom: 5px;
+         }
+
+
+         .analytics__click .icon_wrapper{
+            border-radius: 50%;
+            background-color: #D8F5FF;
+            text-align: center;
+            display: inline-flex;
+            width: 45px;
+            height: 45px;
+            justify-content: center;
+            align-items: center;
+         }
+        .analytics__click .icon{
+          font-size: 25px;
+            color: #669AFF;
+         }
+         .analytics__click .count{
+             font-size: 30px;
+            color: #669AFF;
+            padding-left: 60px;
+         }
+         .website_click .icon_wrapper{
+             background-color: rgba(251, 167, 68, 0.14);
+         }
+           .website_click .count, .website_click .icon{
+             color: #FBA744;
+         }
+            .phone_click .icon_wrapper{
+             background-color: rgba(177, 101, 255, 0.14);
+         }
+           .phone_click .count, .phone_click .icon{
+             color: #B165FF;
+         }
+                .whtsp_click .icon_wrapper{
+             background-color: rgba(0, 128, 0, 0.14);
+         }
+           .whtsp_click .count, .whtsp_click .icon{
+             color: #008000;
+         }
+           .trending_term .icon_wrapper{
+                 border-radius: 50%;
+                background-color: #FFFFFF;
+                text-align: center;
+                display: inline-flex;
+                width: 45px;
+                height: 45px;
+                justify-content: center;
+                align-items: center;
+         }
+           .trending_term .icon{
+             color: #FBA744;
+         }
+
+         .trending_term{
+             background-color: #5549A1;
+             position: relative;
+             height: 527px;
+             overflow-y: hidden;
+         }
+         .trending_term::after{
+            content: '';
+            background-color: #1C0C83;
+            clip-path: polygon(-3px 0, 100% 0, 100% 101%);
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+        .search_term{
+            position: relative;
+            z-index: 100;
+            padding: 15px;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.14);
+            margin: 25px 10px;
+            border-radius: 8px;
+            font-family: Roboto;
+            font-weight: 600;
+            
+        }
+        .keyword_card .heading{
+            font-family: Roboto;
+            font-size: 25px;
+            font-weight: 800;
+        }
+          .keyword_card .icon_wrapper{
+            display:flex;
+            background-color:#D8F5FF ;
+            padding: 6px 15px;
+            top: 0;
+            border-radius: 12px;
+        }
+        .keyrefresh{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: 15px;
+        }
+        .keyrefresh .icon_wrapper{
+            border-radius: 50%;
+            background-color: #EEEEEE;
+            text-align: center;
+            display: inline-flex;
+            width: 45px;
+            height: 45px;
+            justify-content: center;
+            align-items: center;
+            
+      }
+      .keyrefresh .icon{
+        font-size: 25px;
+        color: #808080;
+        
+      }
+      .trending_term .terms{
+        max-height: 413px;
+        overflow-y: auto;     
+      }
+      .keyword_card .nav-pills{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+   
+      .nav-pills .nav-link{
+        border-radius: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 25px;
+        color: #000;
+        background-color: #EEEEEE;
+        outline: 2px solid #ddd;
+        height: 20vh;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+      .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+        background-color: #ffff;
+        color: #000;
+        outline: none;
+      }
+      .analytics__card.keywords{
+        font-family: Roboto;
+        font-weight: 600;
+      }
+      #keyword-chart{
+        min-height: 365px;
+        overflow: auto hidden;
+      }
+      .barSelected{
+        background:#669AFF;
+        cursor: pointer;
+        color: #fff;
+      }
+
+    </style>
+  </head>
+  <body>
+      <p class="analytics__heading my-2 mx-4">Location 1 - Analytics</p>
+    <div x-data="analyticsData" class="analytics py-2 px-2 px-md-4 h-100">
+      <div class="row">
+        <div class="col-12 col-md-7 col-lg-8 col-xl-9">
+          <div class="analytics__card p-3 p-md-4">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div class="analytics__card p-3">
+                <div class=" d-flex flex-column align-items-center">
+                    <p class="analytics__enq_count__heading">
+                        <span class="icon_wrapper mr-2">
+                            <i class="icon fab fa-wpforms"></i>
+                        </span>Total Interaction</p>
+                    <p class="analytics__enq_count" x-text="enquiriesCount"></p>
+                </div>
+              </div>
+              <div class="d-flex since_date align-items-center my-2 my-md-0 ml-auto" style="max-width: fit-content;height:fit-content">
+                <p >Since 15-feb-2022</p>
+                  <button class="icon_wrapper ml-2">
+                    <i class="icon fas fa-redo"></i>
+                  </button>
+              </div>
+            </div>
+              <div class="row">
+                  <div class="col-lg-12 col-xl-7 p-0">
+                      <div id="chart"></div>
+                  </div>
+                   <div class="col-lg-12 col-xl-5 p-0">
+                        <div class="d-flex flex-wrap justify-content-center">
+                           <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
+                                <div class="analytics__click proile_click d-flex flex-column ">
+                                    <div class="divClass1">
+                                        <span class="icon_wrapper mr-3">
+                                            <i class="icon fa fa-calculator"></i>
+                                        </span>
+                                        <span class="divSpan">Finance click</span> 
+                                      </div>
+                                    <p class="count" x-text="userClick.profile"></p>
+                                </div>
+                            </div>
+                            <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
+                                <div class="analytics__click website_click d-flex flex-column">
+                                  <div class="divClass1">
+                                        <span class="icon_wrapper mr-3">
+                                            <i class="icon fa fa-percent"></i>
+                                        </span>
+                                        <span class="divSpan">Offers click</span> 
+                                      </div>
+                                    <p class="count" x-text="userClick.website"></p>
+                                </div>
+                            </div>
+                             <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
+                                <div class="analytics__click phone_click d-flex flex-column">
+                                  <div class="divClass1">
+                                        <span class="icon_wrapper mr-3">
+                                            <i class="icon fa fa-file"></i>
+                                        </span> 
+                                        <span class="divSpan">Brochure Downloads</span> 
+                                      </div>
+                                    <p class="count" x-text="userClick.phone"></p>
+                                </div>
+                            </div>
+                            <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
+                                <div class="analytics__click whtsp_click d-flex flex-column">
+                                  <div class="divClass1">
+                                        <span class="icon_wrapper mr-3">
+                                            <i class="icon fa fa-wrench"></i>
+                                        </span>
+                                        <span class="divSpan">Service click</span> 
+                                      </div>
+                                    <p class="count" x-text="userClick.whatsapp"></p>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-12 col-md-5 col-lg-4 col-xl-3 mt-4 mt-md-0">
+                <div class="analytics__card trending_term p-4">
+                  <div class="analytics__enq_count__heading position-relative 
+                    text-white d-flex justify-content-between align-items-center" style="z-index: 100;">
+                     <p>Top Performing Models</p>
+                      <span class="icon_wrapper position-relative" style="top:-2px">
+                          <i class="icon fas fa-fire"></i>
+                      </span>
+                  </div>
+                  <div class="terms">
+                    <template x-for="(term,index) in trendingSearches">
+                      <p class="search_term" x-text="term.term" :key="index"></p>
+                    </template>
+                  </div>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp;</div>
+        
+            <div class="col-12">&nbsp;</div>
+            <div class="col-12">
+                <div class="analytics__card keyword_card px-0 pt-0 pb-3">
+                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item flex-grow-1" role="presentation">
+                      <a class="nav-link active" id="pills-priority-tab" data-toggle="pill" href="#pills-priority" 
+                      role="tab" aria-controls="pills-priority" aria-selected="true" style="border-top-left-radius: 15px;">
+                        <span>Sunny</span>
+                        <span>50</span>
+                      </a>
+                    </li>
+                    <li class="nav-item flex-grow-1" role="presentation">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                          <span>Altima</span>
+                        <span>50</span>
+                        </a>
+                    </li>
+                    <li class="nav-item flex-grow-1" role="presentation">
+                      <a class="nav-link" id="pills-premium-tab" data-toggle="pill" href="#pills-premium" role="tab" aria-controls="pills-premium" aria-selected="false">
+                          <span>Kick</span>
+                        <span>50</span></a>
+                    </li>
+                      <li class="nav-item flex-grow-1" role="presentation">
+                      <a class="nav-link" id="pills-regular-tab" data-toggle="pill" href="#pills-regular" role="tab" aria-controls="pills-regular" aria-selected="false">
+                          <span>X-Trail</span>
+                        <span>50</span></a>
+                    </li>
+                    </li>
+                      <li class="nav-item flex-grow-1" role="presentation">
+                      <a class="nav-link" id="pills-other-tab" data-toggle="pill" href="#pills-other" role="tab"
+                       aria-controls="pills-other" aria-selected="false" style="border-top-right-radius: 15px;">
+                        <span>X-Terra</span>
+                        <span>50</span></a>
+                    </li>
+                    <li class="nav-item flex-grow-1" role="presentation">
+                      <a class="nav-link" id="pills-other-tab" data-toggle="pill" href="#pills-other" role="tab"
+                       aria-controls="pills-other" aria-selected="false" style="border-top-right-radius: 15px;">
+                        <span>Patrol</span>
+                        <span>50</span></a>
+                    </li>
+                  </ul>
+                  <div class="tab-content d-flex" id="pills-tabContent">
+                    <div class="tab-pane fade show active w-100" id="pills-priority" role="tabpanel" aria-labelledby="pills-priority-tab">
+                      <div class="row">
+                        <div class="col-12 col-lg-4">
+                        <div class="col-12">&nbsp;</div>
+                             <div class="d-flex justify-content-around mr-3 ml-3"
+                             style="font-family: Roboto;color:#6F6767">
+                               <span>Keyword</span> <span>Rank</span>
+                            </div>
+                            <div style="height: 316px;overflow: hidden auto;scrollbar-width: none;">
+                              <template x-for="(category,index) in categories">
+                                  <div class="analytics__card keywords d-flex justify-content-around p-2 my-3 mx-4"
+                                    :class="selectedBar==category&&'barSelected'" style="cursor: pointer"
+                                    x-effect="()=>{
+                                     if(selectedBar==category){
+                                       $el.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                     }
+                                    }"
+                                    @click="()=>{
+                                        let title= document.querySelectorAll('title')
+                                        for(var i=0;i<title.length;i++){
+                                          if(title[i].textContent==category){
+                                            title[i].parentElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                            title[i].parentElement.setAttribute('font-weight','700');
+                                            title[i].parentElement.setAttribute('font-size','16px');
+                                            selectedBar=category;
+                                          }
+                                          else{
+                                            title[i].parentElement.setAttribute('font-weight','400');
+                                              title[i].parentElement.setAttribute('font-size','12px');
+                                          }
+
+                                        } 
+                                    }"
+                                  >
+                                    <span x-text="category "></span> <span>1 of 341</span>
+                                  </div>
+                              </template>
+                             </div>
+                        </div>
+                        <div class="col-12 col-lg-8">
+                          <div class="analytics__card mr-md-3">
+                            <div id="keyword-chart" x-init="getBargraph(graphData,categories)"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade w-100" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                    <div class="tab-pane fade w-100" id="pills-premium" role="tabpanel" aria-labelledby="pills-premium-tab">...</div>
+                    <div class="tab-pane fade w-100" id="pills-regular" role="tabpanel" aria-labelledby="pills-regular-tab">...</div>
+                    <div class="tab-pane fade w-100" id="pills-other" role="tabpanel" aria-labelledby="pills-other-tab">...</div>
+                  </div>
+                </div>
+            </div>
+              <div class="col-12">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('analyticsData', () => ({
+        enquiriesCount:180,
+        userClick:{
+          profile:150,
+          website: 200,
+          phone: 80,
+          whatsapp: 120
+        } ,
+        trendingSearches:
+        [
+          {term:'Patrol',},
+          {term:'Sunny',},
+          {term:'Kicks',},
+          {term:'X-Trail',},
+          {term:'X-Terra',}
+        ],
+        graphData:[21, 22, 10, 28, 16, 21, 13, 30],
+        categories: ['Silos', 'Stainless steel', 'glass', 'metal', 'building matrial', 'paper', 'cement', 'advertisement'],
+        selectedBar:'',
+      
+        getBargraph(data,categories){
+          setSelectedBar=(category)=>{
+            this.selectedBar=category
+          }
+          var options = {
+              series: [{
+                data: data
+              }], 
+              chart: {
+                height: 350,
+                width: data.length   * 115,
+                type: 'bar',
+                events: {
+                    dataPointSelection(event, chartContext, config) {
+                      let index = config.dataPointIndex;
+                      let category = categories[index];
+
+                      let title= document.querySelectorAll('title')
+                      for(var i=0;i<title.length;i++){
+                        if(title[i].textContent==category){
+                          title[i].parentElement.setAttribute('font-weight','700');
+                          title[i].parentElement.setAttribute('font-size','16px');
+                        }
+                        else{
+                          title[i].parentElement.setAttribute('font-weight','400');
+                          title[i].parentElement.setAttribute('font-size','12px');
+                        }
+
+                      } 
+                      setSelectedBar(category)
+                    },
+                
+                }
+                
+              },
+              plotOptions: {
+                bar: {
+                  columnWidth: '45%',
+                  distributed: true,
+                }
+              },
+              dataLabels: {
+                enabled: false
+              },
+              legend: {
+                show: false
+              },
+              xaxis: {
+              categories:categories,
+              labels: {
+                style: {
+                  fontSize: '12px',
+                }
+              }
+            },
+          };
+
+          var chart2 = new ApexCharts(document.querySelector("#keyword-chart"), options);
+          chart2.render();
+        }
+       
+      }))
+    })
+
+    var options = {
+      series: [
+        {
+          name: 'Last Week',
+          data: [31, 40, 28, 51, 42, 109, 100],
+        },
+        {
+          name: 'This Week',
+          data: [11, 32, 45, 32, 34, 52, 41],
+        },
+      ],
+      chart: {
+        height: 350,
+        type: 'area',
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: 'smooth',
+      },
+      xaxis: {
+        type: 'string',
+        categories: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+        ],
+      },
+      tooltip: {
+        x: {
+          format: 'dd/MM/yy HH:mm',
+        },
+      },
+    }
+
+    var chart = new ApexCharts(document.querySelector('#chart'), options)
+    chart.render()
+   
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+</html>
