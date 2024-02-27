@@ -89,20 +89,20 @@ class IndividualDeviceAnalyticsView(TemplateView):
 
             ql_count[item['Name']] = ql_count.get(item['Name'], 0) + item['count']
         print(ql_count)
-        if 'Finance click' in ql_count:
-            fc_clicks = ql_count['Finance click']
+        if 'Finance Calculator' in ql_count:
+            fc_clicks = ql_count['Finance Calculator']
         else:
             fc_clicks = 0
-        if 'Offers click' in ql_count:
-            oc_clicks = ql_count['Offers click']
+        if 'Explore Offers' in ql_count:
+            oc_clicks = ql_count['Explore Offers']
         else:
             oc_clicks = 0
-        if 'Brochure Downloads' in ql_count:
-            bd_clicks = ql_count['Brochure Downloads']
+        if 'View Brochure' in ql_count:
+            bd_clicks = ql_count['View Brochure']
         else:
             bd_clicks = 0
-        if 'Service click' in ql_count:
-            sc_clicks = ql_count['Service click']
+        if 'Service Price' in ql_count:
+            sc_clicks = ql_count['Service Price']
         else:
             sc_clicks = 0
         device_name = cars_clicks[0].DeviceID.Name
