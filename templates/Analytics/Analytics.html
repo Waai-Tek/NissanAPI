@@ -20,7 +20,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Poppins:wght@200;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
     <style>
       html{
         scrollbar-width: none;
@@ -296,13 +299,13 @@
                         <span class="icon_wrapper mr-2">
                             <i class="icon fab fa-wpforms"></i>
                         </span>Total Interaction</p>
-                    <p class="analytics__enq_count" x-text="enquiriesCount"></p>
+                    <p class="analytics__enq_count">{{ total_interactions }}</p>
                 </div>
               </div>
               <div class="d-flex since_date align-items-center my-2 my-md-0 ml-auto" style="max-width: fit-content;height:fit-content">
                 <p >Since 15-feb-2022</p>
                   <button class="icon_wrapper ml-2">
-                    <i class="icon fas fa-redo"></i>
+                    <i id="reloadIcon" class="icon fas fa-redo"></i>
                   </button>
               </div>
             </div>
@@ -320,7 +323,8 @@
                                         </span>
                                         <span class="divSpan">Finance click</span> 
                                       </div>
-                                    <p class="count" x-text="userClick.profile"></p>
+                                    <p class="count">{{ fc_clicks }}</p>
+
                                 </div>
                             </div>
                             <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
@@ -331,7 +335,7 @@
                                         </span>
                                         <span class="divSpan">Offers click</span> 
                                       </div>
-                                    <p class="count" x-text="userClick.website"></p>
+                                    <p class="count">{{ oc_clicks }}</p>
                                 </div>
                             </div>
                              <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
@@ -342,7 +346,7 @@
                                         </span> 
                                         <span class="divSpan">Brochure Downloads</span> 
                                       </div>
-                                    <p class="count" x-text="userClick.phone"></p>
+                                    <p class="count">{{ bd_clicks }}</p>
                                 </div>
                             </div>
                             <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
@@ -353,7 +357,7 @@
                                         </span>
                                         <span class="divSpan">Service click</span> 
                                       </div>
-                                    <p class="count" x-text="userClick.whatsapp"></p>
+                                    <p class="count">{{ sc_clicks }}</p>
                                 </div>
                             </div>
                         </div>
@@ -371,9 +375,10 @@
                       </span>
                   </div>
                   <div class="terms">
-                    <template x-for="(term,index) in trendingSearches">
-                      <p class="search_term" x-text="term.term" :key="index"></p>
-                    </template>
+                      {% for car, count in cars_count.items %}
+                        <p class="search_term">{{ car }}</p>
+                      {% endfor %}
+
                   </div>
                   
                 </div>
@@ -386,42 +391,23 @@
             <div class="col-12">
                 <div class="analytics__card keyword_card px-0 pt-0 pb-3">
                   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link active" id="pills-priority-tab" data-toggle="pill" href="#pills-priority" 
+                      {% for car, count in cars_count.items %}
+                        <li class="nav-item flex-grow-1" role="presentation">
+                              {% if forloop.counter == 1 %}
+                              <a class="nav-link active" id="pills-priority-tab" data-toggle="pill" href="#pills-priority"
                       role="tab" aria-controls="pills-priority" aria-selected="true" style="border-top-left-radius: 15px;">
-                        <span>Sunny</span>
-                        <span>50</span>
-                      </a>
-                    </li>
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
-                          <span>Altima</span>
-                        <span>50</span>
-                        </a>
-                    </li>
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-premium-tab" data-toggle="pill" href="#pills-premium" role="tab" aria-controls="pills-premium" aria-selected="false">
-                          <span>Kick</span>
-                        <span>50</span></a>
-                    </li>
-                      <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-regular-tab" data-toggle="pill" href="#pills-regular" role="tab" aria-controls="pills-regular" aria-selected="false">
-                          <span>X-Trail</span>
-                        <span>50</span></a>
-                    </li>
-                    </li>
-                      <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-other-tab" data-toggle="pill" href="#pills-other" role="tab"
-                       aria-controls="pills-other" aria-selected="false" style="border-top-right-radius: 15px;">
-                        <span>X-Terra</span>
-                        <span>50</span></a>
-                    </li>
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-other-tab" data-toggle="pill" href="#pills-other" role="tab"
-                       aria-controls="pills-other" aria-selected="false" style="border-top-right-radius: 15px;">
-                        <span>Patrol</span>
-                        <span>50</span></a>
-                    </li>
+                                <span>{{ car }}</span>
+                                <span>{{ count }}</span>
+                              </a>
+                              {% else %}
+                                <a class="nav-link" id="pills-regular-tab" data-toggle="pill" href="#pills-regular" role="tab" aria-controls="pills-regular" aria-selected="false">
+                                <span>{{ car }}</span>
+                                <span>{{ count }}</span>
+                              </a>
+                              {% endif %}
+                        </li>
+                      {% endfor  %}
+
                   </ul>
                   <div class="tab-content d-flex" id="pills-tabContent">
                     <div class="tab-pane fade show active w-100" id="pills-priority" role="tabpanel" aria-labelledby="pills-priority-tab">
@@ -483,6 +469,48 @@
     </div>
   </body>
   <script>
+    var responseData;
+    const device_id = {{ device_id }}
+
+    $(document).ready(function(){
+            // Event listener for the button click
+            function populateTabContent() {
+                // Parameters to be sent in the AJAX request
+                var params = {
+                    'device_id': {{ device_id }},
+                    'param2': 'Sunny'
+                };
+
+                $.ajax({
+                    url: "{% url 'get_clicks' %}", // URL to your Django view
+                    type: 'GET', // HTTP method (GET, POST, etc.)
+                    data: params, // Parameters to be sent
+                    success: function(data){
+                        // Assign the AJAX response to the global variable
+                        responseData = response;
+                        //$('#response').html(data); // Display response
+                    },
+                    error: function(xhr, status, error){
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+            populateTabContent();
+        });
+  </script>
+  <script>
+
+    // Get the <i> element with id 'reloadIcon'
+      // Add an event listener to the <i> element with id 'reloadIcon'
+        document.getElementById('reloadIcon').addEventListener('click', function() {
+            location.reload(); // Reload the page when the icon is clicked
+            // Alternatively, you can redirect to another page using:
+            // window.location.href = 'https://example.com';
+        });
+
+
+
+
     document.addEventListener('alpine:init', () => {
       Alpine.data('analyticsData', () => ({
         enquiriesCount:180,
@@ -612,7 +640,6 @@
     chart.render()
    
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
 
 </html>
