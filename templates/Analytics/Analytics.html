@@ -390,7 +390,7 @@
             <div class="col-12">&nbsp;</div>
             <div class="col-12">
                 <div class="analytics__card keyword_card px-0 pt-0 pb-3">
-                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                  <ul class="nav nav-pills mb-2" id="pills-tab" role="tablist">
                       {% for car, count in cars_count.items %}
                           <li class="nav-item flex-grow-1" role="presentation">
                                 {% if forloop.counter == 1 %}
@@ -619,11 +619,11 @@
       series: [
         {
           name: 'Last Week',
-          data: [31, 40, 28, 51, 42, 109, 100],
+          data: {{ last_week_data }},
         },
         {
           name: 'This Week',
-          data: [11, 32, 45, 32, 34, 52, 41],
+          data: {{ this_week_data }},
         },
       ],
       chart: {
