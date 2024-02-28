@@ -126,6 +126,7 @@ class IndividualDeviceAnalyticsView(TemplateView):
             'device_id': device_id,
             'this_week_data': graph_data[0],
             'last_week_data': graph_data[1],
+            'today': datetime.now().date().strftime("%d-%m-%Y")
         }
         return render(request, self.template_name, args)
 
@@ -146,7 +147,7 @@ def get_clicks(request):
 
     # Convert the sorted items back to a dictionary
     ao_count = dict(sorted_items)
-    
+
     keywords = [key for key, _ in ao_count.items()]
     counts = [value for _, value in ao_count.items()]
     args = {
