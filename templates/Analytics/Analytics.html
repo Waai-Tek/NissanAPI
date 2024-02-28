@@ -20,9 +20,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Poppins:wght@200;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
     <style>
       html{
@@ -392,74 +392,80 @@
                 <div class="analytics__card keyword_card px-0 pt-0 pb-3">
                   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                       {% for car, count in cars_count.items %}
-                        <li class="nav-item flex-grow-1" role="presentation">
-                              {% if forloop.counter == 1 %}
-                              <a class="nav-link active" id="pills-priority-tab" data-toggle="pill" href="#pills-priority"
-                      role="tab" aria-controls="pills-priority" aria-selected="true" style="border-top-left-radius: 15px;">
-                                <span>{{ car }}</span>
-                                <span>{{ count }}</span>
-                              </a>
-                              {% else %}
-                                <a class="nav-link" id="pills-regular-tab" data-toggle="pill" href="#pills-regular" role="tab" aria-controls="pills-regular" aria-selected="false">
-                                <span>{{ car }}</span>
-                                <span>{{ count }}</span>
-                              </a>
-                              {% endif %}
-                        </li>
-                      {% endfor  %}
+                          <li class="nav-item flex-grow-1" role="presentation">
+                                {% if forloop.counter == 1 %}
+                                <a class="nav-link active" x-on:click="populateTabContent('{{ car }}')" 
+                                x-init="populateTabContent('{{ car }}')" id="pills-{{ car }}-tab" data-toggle="pill" href="#pills-{{ car }}"
+                                role="tab" aria-controls="pills-{{ car }}" aria-selected="true" style="border-top-left-radius: 15px;">
+                                  <span>{{ car }}</span>
+                                  <span>{{ count }}</span>
+                                </a>
+                                {% else %}
+                                  <a class="nav-link" id="pills-{{ car }}-tab" x-on:click="populateTabContent('{{ car }}')" data-toggle="pill" 
+                                  href="#pills-{{ car }}" role="tab" aria-controls="pills-{{ car }}" aria-selected="false">
+                                  <span>{{ car }}</span>
+                                  <span>{{ count }}</span>
+                                </a>
+                                {% endif %}
+                          </li>
 
-                  </ul>
-                  <div class="tab-content d-flex" id="pills-tabContent">
-                    <div class="tab-pane fade show active w-100" id="pills-priority" role="tabpanel" aria-labelledby="pills-priority-tab">
-                      <div class="row">
-                        <div class="col-12 col-lg-4">
-                        <div class="col-12">&nbsp;</div>
-                             <div class="d-flex justify-content-around mr-3 ml-3"
-                             style="font-family: Roboto;color:#6F6767">
-                               <span>Keyword</span> <span>Rank</span>
+
+                        {% endfor  %}
+
+                    </ul>
+                    <div class="tab-content d-flex" id="pills-tabContent">
+                      {% for car, count in cars_count.items %}
+                        {% if forloop.counter == 1 %}
+                          <div class="tab-pane fade show active w-100" id="pills-{{ car }}" role="tabpanel" aria-labelledby="pills-{{ car }}-tab">
+                        {% else %}
+                          <div class="tab-pane fade w-100" id="pills-{{ car }}" role="tabpanel" aria-labelledby="pills-{{ car }}-tab">
+                        {% endif %}
+                          <div class="row">
+                            <div class="col-12 col-lg-4">
+                            <div class="col-12">&nbsp;</div>
+                                <div class="d-flex justify-content-around mr-3 ml-3"
+                                style="font-family: Roboto;color:#6F6767">
+                                  <span>Keyword</span> <span>Clicks</span>
+                                </div>
+                                <div style="height: 316px;overflow: hidden auto;scrollbar-width: none;">
+                                  <template x-for="(category,index) in categories">
+                                      <div class="analytics__card keywords d-flex justify-content-around p-2 my-3 mx-4"
+                                        :class="selectedBar==category&&'barSelected'" style="cursor: pointer"
+                                        x-effect="()=>{
+                                        if(selectedBar==category){
+                                          $el.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                        }
+                                        }"
+                                        @click="()=>{
+                                            let title= document.querySelectorAll('title')
+                                            for(var i=0;i<title.length;i++){
+                                              if(title[i].textContent==category){
+                                                title[i].parentElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                                title[i].parentElement.setAttribute('font-weight','700');
+                                                title[i].parentElement.setAttribute('font-size','16px');
+                                                selectedBar=category;
+                                              }
+                                              else{
+                                                title[i].parentElement.setAttribute('font-weight','400');
+                                                  title[i].parentElement.setAttribute('font-size','12px');
+                                              }
+
+                                            } 
+                                        }"
+                                      >
+                                        <span x-text="category "></span> <span x-text="graphData[index] "></span>
+                                      </div>
+                                  </template>
+                                </div>
                             </div>
-                            <div style="height: 316px;overflow: hidden auto;scrollbar-width: none;">
-                              <template x-for="(category,index) in categories">
-                                  <div class="analytics__card keywords d-flex justify-content-around p-2 my-3 mx-4"
-                                    :class="selectedBar==category&&'barSelected'" style="cursor: pointer"
-                                    x-effect="()=>{
-                                     if(selectedBar==category){
-                                       $el.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                     }
-                                    }"
-                                    @click="()=>{
-                                        let title= document.querySelectorAll('title')
-                                        for(var i=0;i<title.length;i++){
-                                          if(title[i].textContent==category){
-                                            title[i].parentElement.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                            title[i].parentElement.setAttribute('font-weight','700');
-                                            title[i].parentElement.setAttribute('font-size','16px');
-                                            selectedBar=category;
-                                          }
-                                          else{
-                                            title[i].parentElement.setAttribute('font-weight','400');
-                                              title[i].parentElement.setAttribute('font-size','12px');
-                                          }
-
-                                        } 
-                                    }"
-                                  >
-                                    <span x-text="category "></span> <span>1 of 341</span>
-                                  </div>
-                              </template>
-                             </div>
-                        </div>
-                        <div class="col-12 col-lg-8">
-                          <div class="analytics__card mr-md-3">
-                            <div id="keyword-chart" x-init="getBargraph(graphData,categories)"></div>
+                            <div class="col-12 col-lg-8">
+                              <div class="analytics__card mr-md-3" style="overflow: auto;">
+                                <div id="keyword-{{ car }}-chart"></div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="tab-pane fade w-100" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                    <div class="tab-pane fade w-100" id="pills-premium" role="tabpanel" aria-labelledby="pills-premium-tab">...</div>
-                    <div class="tab-pane fade w-100" id="pills-regular" role="tabpanel" aria-labelledby="pills-regular-tab">...</div>
-                    <div class="tab-pane fade w-100" id="pills-other" role="tabpanel" aria-labelledby="pills-other-tab">...</div>
+                    {% endfor %}
                   </div>
                 </div>
             </div>
@@ -469,34 +475,7 @@
     </div>
   </body>
   <script>
-    var responseData;
-    const device_id = {{ device_id }}
-
-    $(document).ready(function(){
-            // Event listener for the button click
-            function populateTabContent() {
-                // Parameters to be sent in the AJAX request
-                var params = {
-                    'device_id': {{ device_id }},
-                    'param2': 'Sunny'
-                };
-
-                $.ajax({
-                    url: "{% url 'get_clicks' %}", // URL to your Django view
-                    type: 'GET', // HTTP method (GET, POST, etc.)
-                    data: params, // Parameters to be sent
-                    success: function(data){
-                        // Assign the AJAX response to the global variable
-                        responseData = response;
-                        //$('#response').html(data); // Display response
-                    },
-                    error: function(xhr, status, error){
-                        console.error(xhr.responseText);
-                    }
-                });
-            }
-            populateTabContent();
-        });
+   
   </script>
   <script>
 
@@ -510,8 +489,12 @@
 
 
 
+        var responseData;
+        const device_id = {{ device_id }}
+        var chart2;
 
     document.addEventListener('alpine:init', () => {
+
       Alpine.data('analyticsData', () => ({
         enquiriesCount:180,
         userClick:{
@@ -528,11 +511,44 @@
           {term:'X-Trail',},
           {term:'X-Terra',}
         ],
-        graphData:[21, 22, 10, 28, 16, 21, 13, 30],
-        categories: ['Silos', 'Stainless steel', 'glass', 'metal', 'building matrial', 'paper', 'cement', 'advertisement'],
+        graphData:[],
+        categories: [],
         selectedBar:'',
-      
-        getBargraph(data,categories){
+        
+
+        // Event listener for the button click
+        populateTabContent(carName) {
+            // Parameters to be sent in the AJAX request
+            var params = {
+                'device_id': {{ device_id }},
+                'car_name': carName
+            };
+            
+            const setCategories = (response) => {
+                this.categories = response.keywords
+                this.graphData = response.counts
+                var graphData = response.counts
+                var categories = response.keywords
+                this.getBargraph(graphData, categories, carName)
+                
+                console.log(graphData)
+            }
+            $.ajax({
+                url: "{% url 'get_clicks' %}", // URL to your Django view
+                type: 'GET', // HTTP method (GET, POST, etc.)
+                data: params, // Parameters to be sent
+                success: function(data){
+                    // Assign the AJAX response to the global variable
+                    responseData = data;
+                    setCategories(responseData)
+                    //$('#response').html(data); // Display response
+                },
+                error: function(xhr, status, error){
+                    console.error(xhr.responseText);
+                }
+            });
+        },
+        getBargraph(data,categories,carName){
           setSelectedBar=(category)=>{
             this.selectedBar=category
           }
@@ -541,8 +557,8 @@
                 data: data
               }], 
               chart: {
-                height: 350,
-                width: data.length   * 115,
+                height: 330,
+                width: data.length   * 200,
                 type: 'bar',
                 events: {
                     dataPointSelection(event, chartContext, config) {
@@ -588,8 +604,11 @@
               }
             },
           };
-
-          var chart2 = new ApexCharts(document.querySelector("#keyword-chart"), options);
+          if (chart2 != null){
+              console.log("chat destroyed")
+              chart2.destroy();
+          }
+          chart2 = new ApexCharts(document.querySelector("#keyword-"+carName+"-chart"), options);
           chart2.render();
         }
        

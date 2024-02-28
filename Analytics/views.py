@@ -76,7 +76,6 @@ class IndividualDeviceAnalyticsView(TemplateView):
         cars_count = {}
         for item in queryset:
             cars_count[item['Name']] = cars_count.get(item['Name'], 0) + item['count']
-        print(cars_count)
 
         ql_click = QuickLinks.objects.filter(DeviceID_id=device_id,
                                                    InsertedOn__year=datetime.now().year).order_by('-InsertedOn')
@@ -88,7 +87,6 @@ class IndividualDeviceAnalyticsView(TemplateView):
         for item in ql_queryset:
 
             ql_count[item['Name']] = ql_count.get(item['Name'], 0) + item['count']
-        print(ql_count)
         if 'Finance Calculator' in ql_count:
             fc_clicks = ql_count['Finance Calculator']
         else:
@@ -124,10 +122,6 @@ class IndividualDeviceAnalyticsView(TemplateView):
 def get_clicks(request):
     device_id = request.GET.get('device_id')
     car_name = request.GET.get('car_name')
-    # device_id = '1'
-    keywords = []
-    counts = []
-    # car_name = 'Sunny'
     car_clicks = ActiveObjects.objects.filter(DeviceID_id=device_id, Name=car_name, InsertedOn__year=datetime.now().year).order_by(
         '-InsertedOn')
     ao_queryset = car_clicks.values('Keyword').annotate(count=Count('Keyword'))
@@ -135,14 +129,8 @@ def get_clicks(request):
     ao_count = {}
     for item in ao_queryset:
         ao_count[item['Keyword']] = ao_count.get(item['Keyword'], 0) + item['count']
-    print('-------------------------------',ao_count)
-    for item in ao_count:
-        keyword = item['Keyword']
-        count = item['count']
-
-        # Append keyword and count to respective lists
-        keywords.append(keyword)
-        counts.append(count)
+    keywords = [key for key, _ in ao_count.items()]
+    counts = [value for _, value in ao_count.items()]
     args = {
         'ao_count': ao_count,
         'keywords': keywords,
