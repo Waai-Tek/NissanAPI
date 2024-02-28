@@ -17,11 +17,16 @@
     ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Poppins:wght@200;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     
     <style>
+
       html{
         scrollbar-width: none;
         overflow: auto hidden;
@@ -284,204 +289,72 @@
     </style>
   </head>
   <body>
-      <p class="analytics__heading my-2 mx-4">Location 1 - Analytics</p>
-    <div x-data="analyticsData" class="analytics py-2 px-2 px-md-4 h-100">
-      <div class="row">
-        <div class="col-12 col-md-7 col-lg-8 col-xl-9">
-          <div class="analytics__card p-3 p-md-4">
-            <div class="d-flex justify-content-between flex-wrap">
-              <div class="analytics__card p-3">
-                <div class=" d-flex flex-column align-items-center">
-                    <p class="analytics__enq_count__heading">
-                        <span class="icon_wrapper mr-2">
-                            <i class="icon fab fa-wpforms"></i>
-                        </span>Total Interaction</p>
-                    <p class="analytics__enq_count" x-text="enquiriesCount"></p>
-                </div>
-              </div>
-              <div class="d-flex since_date align-items-center my-2 my-md-0 ml-auto" style="max-width: fit-content;height:fit-content">
-                <p >Since 15-feb-2022</p>
-                  <button class="icon_wrapper ml-2">
-                    <i class="icon fas fa-redo"></i>
-                  </button>
-              </div>
+      <p class="analytics__heading my-2 mx-4">Overview</p>
+        <div x-data="analyticsData" class="analytics py-2 px-2 px-md-4">
+          <div class="row">
+            <div class="analytics__card p-3 p-md-4" style="width: -webkit-fill-available;">
+              <div id="chart"></div>
             </div>
-              <div class="row">
-                  <div class="col-lg-12 col-xl-7 p-0">
-                      <div id="chart"></div>
-                  </div>
-                   <div class="col-lg-12 col-xl-5 p-0">
-                        <div class="d-flex flex-wrap justify-content-center">
-                           <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
-                                <div class="analytics__click proile_click d-flex flex-column ">
-                                    <div class="divClass1">
-                                        <span class="icon_wrapper mr-3">
-                                            <i class="icon fa fa-calculator"></i>
-                                        </span>
-                                        <span class="divSpan">Finance click</span> 
-                                      </div>
-                                    <p class="count" x-text="userClick.profile"></p>
-                                </div>
-                            </div>
-                            <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
-                                <div class="analytics__click website_click d-flex flex-column">
-                                  <div class="divClass1">
-                                        <span class="icon_wrapper mr-3">
-                                            <i class="icon fa fa-percent"></i>
-                                        </span>
-                                        <span class="divSpan">Offers click</span> 
-                                      </div>
-                                    <p class="count" x-text="userClick.website"></p>
-                                </div>
-                            </div>
-                             <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
-                                <div class="analytics__click phone_click d-flex flex-column">
-                                  <div class="divClass1">
-                                        <span class="icon_wrapper mr-3">
-                                            <i class="icon fa fa-file"></i>
-                                        </span> 
-                                        <span class="divSpan">Brochure Downloads</span> 
-                                      </div>
-                                    <p class="count" x-text="userClick.phone"></p>
-                                </div>
-                            </div>
-                            <div class="analytics__card p-1 p-md-2 m-1 m-md-2" style="max-width: fit-content;">
-                                <div class="analytics__click whtsp_click d-flex flex-column">
-                                  <div class="divClass1">
-                                        <span class="icon_wrapper mr-3">
-                                            <i class="icon fa fa-wrench"></i>
-                                        </span>
-                                        <span class="divSpan">Service click</span> 
-                                      </div>
-                                    <p class="count" x-text="userClick.whatsapp"></p>
-                                </div>
-                            </div>
-                        </div>
-                  </div>
+          </div>
+          <div class="col-12">&nbsp;</div>
+          <div class="col-12">&nbsp;</div>
+            <div class="analytics__card p-3 p-md-4" style="width: -webkit-fill-available;">
+              <div class="container">
+                <table class="table" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Network</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Last Active</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for a in devices_list %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ a.DeviceID.Name }}</td>
+                        <td>{{ a.DeviceID.Location }}</td>
+                        <td>{{ a.NetworkStatus }}</td>
+                        <td>{{ a.Status }}</td>
+                        <td>{{ a.InsertedOn }}</td>
+                        <td>
+                          <button class="btn btn-primary zones" type="button" onclick="window.open('{% url 'IndividualDeviceAnalytics' a.DeviceID.id %}', '_blank')" >Analytics</button>
+                        </td>  
+                        
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-            <div class="col-12 col-md-5 col-lg-4 col-xl-3 mt-4 mt-md-0">
-                <div class="analytics__card trending_term p-4">
-                  <div class="analytics__enq_count__heading position-relative 
-                    text-white d-flex justify-content-between align-items-center" style="z-index: 100;">
-                     <p>Top Performing Models</p>
-                      <span class="icon_wrapper position-relative" style="top:-2px">
-                          <i class="icon fas fa-fire"></i>
-                      </span>
-                  </div>
-                  <div class="terms">
-                    <template x-for="(term,index) in trendingSearches">
-                      <p class="search_term" x-text="term.term" :key="index"></p>
-                    </template>
-                  </div>
-                  
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">&nbsp;</div>
-        
-            <div class="col-12">&nbsp;</div>
-            <div class="col-12">
-                <div class="analytics__card keyword_card px-0 pt-0 pb-3">
-                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link active" id="pills-priority-tab" data-toggle="pill" href="#pills-priority" 
-                      role="tab" aria-controls="pills-priority" aria-selected="true" style="border-top-left-radius: 15px;">
-                        <span>Sunny</span>
-                        <span>50</span>
-                      </a>
-                    </li>
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
-                          <span>Altima</span>
-                        <span>50</span>
-                        </a>
-                    </li>
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-premium-tab" data-toggle="pill" href="#pills-premium" role="tab" aria-controls="pills-premium" aria-selected="false">
-                          <span>Kick</span>
-                        <span>50</span></a>
-                    </li>
-                      <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-regular-tab" data-toggle="pill" href="#pills-regular" role="tab" aria-controls="pills-regular" aria-selected="false">
-                          <span>X-Trail</span>
-                        <span>50</span></a>
-                    </li>
-                    </li>
-                      <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-other-tab" data-toggle="pill" href="#pills-other" role="tab"
-                       aria-controls="pills-other" aria-selected="false" style="border-top-right-radius: 15px;">
-                        <span>X-Terra</span>
-                        <span>50</span></a>
-                    </li>
-                    <li class="nav-item flex-grow-1" role="presentation">
-                      <a class="nav-link" id="pills-other-tab" data-toggle="pill" href="#pills-other" role="tab"
-                       aria-controls="pills-other" aria-selected="false" style="border-top-right-radius: 15px;">
-                        <span>Patrol</span>
-                        <span>50</span></a>
-                    </li>
-                  </ul>
-                  <div class="tab-content d-flex" id="pills-tabContent">
-                    <div class="tab-pane fade show active w-100" id="pills-priority" role="tabpanel" aria-labelledby="pills-priority-tab">
-                      <div class="row">
-                        <div class="col-12 col-lg-4">
-                        <div class="col-12">&nbsp;</div>
-                             <div class="d-flex justify-content-around mr-3 ml-3"
-                             style="font-family: Roboto;color:#6F6767">
-                               <span>Keyword</span> <span>Rank</span>
-                            </div>
-                            <div style="height: 316px;overflow: hidden auto;scrollbar-width: none;">
-                              <template x-for="(category,index) in categories">
-                                  <div class="analytics__card keywords d-flex justify-content-around p-2 my-3 mx-4"
-                                    :class="selectedBar==category&&'barSelected'" style="cursor: pointer"
-                                    x-effect="()=>{
-                                     if(selectedBar==category){
-                                       $el.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                     }
-                                    }"
-                                    @click="()=>{
-                                        let title= document.querySelectorAll('title')
-                                        for(var i=0;i<title.length;i++){
-                                          if(title[i].textContent==category){
-                                            title[i].parentElement.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                            title[i].parentElement.setAttribute('font-weight','700');
-                                            title[i].parentElement.setAttribute('font-size','16px');
-                                            selectedBar=category;
-                                          }
-                                          else{
-                                            title[i].parentElement.setAttribute('font-weight','400');
-                                              title[i].parentElement.setAttribute('font-size','12px');
-                                          }
 
-                                        } 
-                                    }"
-                                  >
-                                    <span x-text="category "></span> <span>1 of 341</span>
-                                  </div>
-                              </template>
-                             </div>
-                        </div>
-                        <div class="col-12 col-lg-8">
-                          <div class="analytics__card mr-md-3">
-                            <div id="keyword-chart" x-init="getBargraph(graphData,categories)"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tab-pane fade w-100" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                    <div class="tab-pane fade w-100" id="pills-premium" role="tabpanel" aria-labelledby="pills-premium-tab">...</div>
-                    <div class="tab-pane fade w-100" id="pills-regular" role="tabpanel" aria-labelledby="pills-regular-tab">...</div>
-                    <div class="tab-pane fade w-100" id="pills-other" role="tabpanel" aria-labelledby="pills-other-tab">...</div>
-                  </div>
-                </div>
-            </div>
-              <div class="col-12">&nbsp;</div>
         </div>
+        
+      </div>
       </div>
     </div>
   </body>
+  <script>
+    var DataTable = require( 'datatables.net' );
+ 
+    let table = new DataTable('#example', {
+        // config options...
+    });
+    var t = $('#example').DataTable({"dom": 'rt',});
+    var d = new Date();
+
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+
+    var output = d.getFullYear() + '/' +
+        ((''+month).length<2 ? '0' : '') + month + '/' +
+        ((''+day).length<2 ? '0' : '') + day;
+</script>
   <script>
     document.addEventListener('alpine:init', () => {
       Alpine.data('analyticsData', () => ({
@@ -572,11 +445,11 @@
       series: [
         {
           name: 'Last Week',
-          data: [31, 40, 28, 51, 42, 109, 100],
+          data: {{ last_week_data }},
         },
         {
           name: 'This Week',
-          data: [11, 32, 45, 32, 34, 52, 41],
+          data: {{ this_week_data }},
         },
       ],
       chart: {
@@ -612,7 +485,5 @@
     chart.render()
    
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jrtANYzQsi+8UCXg4zYeL3IT5cQEh4" crossorigin="anonymous"></script>
 </html>
