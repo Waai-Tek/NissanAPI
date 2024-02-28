@@ -53,11 +53,9 @@ class AllDeviceAnalyticsView(TemplateView):
             InsertedOn__in=Subquery(latest_insertion_times.values('latest_insertion_time')))
         # Get the related objects for the latest DeviceAnalytics instances
         devices_list = DeviceAnalytics.objects.filter(id__in=latest_main_models).order_by('-InsertedOn')
-        device_name = devices_list[0].DeviceID.Name
         graph_data = get_week_data_all()
         args = {
             'devices_list': devices_list,
-            'device_name': device_name,
             'this_week_data': graph_data[0],
             'last_week_data': graph_data[1],
         }
