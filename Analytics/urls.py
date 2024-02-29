@@ -5,12 +5,18 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.urls import path, include, re_path
 
-
-from .views import AllDeviceAnalyticsView, IndividualDeviceAnalyticsView, get_clicks
+from django.contrib.auth import views
+from .views import AllDeviceAnalyticsView, IndividualDeviceAnalyticsView, get_clicks, LoginView, landing_redirection
 
 
 urlpatterns = [
-    path('', AllDeviceAnalyticsView.as_view(), name='AllDeviceAnalytics'),
+    path('', landing_redirection, name='landing'),
+
+    path('login/', LoginView.as_view(), name='login'),
+
+    path('accounts/logout/', views.LogoutView.as_view(), name='logout'),
+    path('AllDeviceAnalytics/', AllDeviceAnalyticsView.as_view(), name='AllDeviceAnalytics'),
+
     path('IndividualDeviceAnalytics/<int:device_id>', IndividualDeviceAnalyticsView.as_view(), name='IndividualDeviceAnalytics'),
     path('get_clicks', get_clicks, name='get_clicks'),
 ]

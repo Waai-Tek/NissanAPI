@@ -29,5 +29,5 @@ urlpatterns = [
     path('ActiveObjects/', ActiveObjectsViewSet.as_view()),
     path('QuickLinks/', QuickLinksViewSet.as_view()),
 
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

@@ -1,3 +1,5 @@
+from django.contrib.auth.models import AbstractUser, User
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 
@@ -36,3 +38,13 @@ class QuickLinks(models.Model):
 
     def __str__(self):
         return self.Name
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        User,
+        verbose_name=_("user"),
+        on_delete=models.CASCADE
+    )
+    DeviceID = models.ForeignKey(Devices, on_delete=models.CASCADE)
+
