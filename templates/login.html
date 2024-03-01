@@ -31,7 +31,8 @@
         <div class="card card-lg mb-5">
           <div class="card-body">
             <!-- Form -->
-            <form class="js-validate needs-validation" novalidate="">
+            <form method="post" class="js-validate needs-validation" novalidate="">
+              {% csrf_token %}
               <div class="text-center">
                 <div class="mb-5">
                   <h1 class="display-5">Login</h1>
@@ -45,7 +46,7 @@
               <!-- Form -->
               <div class="mb-4">
                 <label class="form-label" for="signinSrEmail">Your email</label>
-                <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="email@address.com" aria-label="email@address.com" required="">
+                <input type="email" class="form-control form-control-lg" name="username" id="signinSrEmail" tabindex="1" placeholder="email@address.com" aria-label="email@address.com" required="">
                 <span class="invalid-feedback">Please enter a valid email address.</span>
               </div>
               <!-- End Form -->
