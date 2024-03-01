@@ -27,10 +27,10 @@
 
       .analytics__heading { 
         font-family: Roboto;
-        font-size: 30px;
-        font-weight: 700;
-        padding-top: 30px;
-        padding-bottom: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    padding-top: 25px;
+    padding-bottom: 10px;
       }
       .analytics__card {
         padding: 5px;
@@ -276,20 +276,20 @@
       <p class="analytics__heading my-2 mx-4">Overview</p>
         <div x-data="analyticsData" class="analytics py-2 px-2 px-md-4">
           <div class="row">
-            <div class="analytics__card p-3 p-md-4" style="width: -webkit-fill-available;">
+            <div class="analytics__card p-3 p-md-4 mg--d" style="width: -webkit-fill-available;">
               <div id="chart"></div>
             </div>
           </div>
           <div class="col-12">&nbsp;</div>
           <div class="col-12">&nbsp;</div>
-            <div class="analytics__card p-3 p-md-4" style="width: -webkit-fill-available;">
+            <div class="analytics__card" style="width: -webkit-fill-available;">
               <div class="container">
                 <table class="table" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Location</th>
+                      <th scope="col" class="name__w">Name</th>
+                      <th scope="col" class="loc_w">Location</th>
                       <th scope="col">Network</th>
                       <th scope="col">Status</th>
                       <th scope="col">Last Active</th>
@@ -302,11 +302,11 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ a.DeviceID.Name }}</td>
                         <td>{{ a.DeviceID.Location }}</td>
-                        <td>{{ a.NetworkStatus }}</td>
-                        <td>{{ a.Status }}</td>
+                        <td>{% if a.NetworkStatus is True %}  <span class="css-success">Online</span>  {% else %}  <span class="css-danger">Offline</span> {% endif %}</td>
+                         <td>{% if a.Status is True %}  <span class="css-success">Online</span>  {% else %}  <span class="css-danger">Offline</span> {% endif %}</td>
                         <td>{{ a.InsertedOn }}</td>
                         <td>
-                          <button class="btn btn-primary zones" type="button" onclick="window.open('{% url 'IndividualDeviceAnalytics' a.DeviceID.id %}', '_blank')" >Analytics</button>
+                          <button class="btn btn-primary zones btn-sm" type="button" onclick="window.open('{% url 'IndividualDeviceAnalytics' a.DeviceID.id %}', '_blank')" >Analytics</button>
                         </td>  
                         
                       </tr>
