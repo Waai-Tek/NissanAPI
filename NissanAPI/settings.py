@@ -91,22 +91,22 @@ DATABASES = {
     #             #    'driver': 'ODBC Driver 17 for SQL Server',
     #             # },
     #        },
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'Nissan',
-    #     'USER': 'postgres',
-    #     'PASSWORD': '1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-    # }
     'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'Nissan',
-            'USER': 'NissanAnalytics',
-            'PASSWORD': 'FYzXTe8W7HsY',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Nissan',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+    # 'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'Nissan',
+    #         'USER': 'NissanAnalytics',
+    #         'PASSWORD': 'FYzXTe8W7HsY',
+    #         'HOST': 'localhost',
+    #         'PORT': '5432',
+    #     }
 }
 
 # Password validation
