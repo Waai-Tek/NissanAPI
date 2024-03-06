@@ -10,6 +10,12 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+
 sys.path.insert(0, '..')
 from API.models import Devices, DeviceAnalytics, ActiveObjects, QuickLinks, UserProfile
 
@@ -44,7 +50,7 @@ class AllDeviceAnalyticsView(TemplateView):
     template_name = 'Analytics/DeviceAnalytics.html'
 
     def get(self, request, *args, **kwargs):
-        if request.user.groups.filter(name="Admin").exists():
+        if request.user.groups.filter(name="Admin").exists() or request.user.groups.filter(name="SuperAdmin").exists():
             # Get the latest insertion time for each foreign key ID
             latest_insertion_times = DeviceAnalytics.objects.values('DeviceID_id').annotate(
                 latest_insertion_time=Max('InsertedOn'))
@@ -69,7 +75,8 @@ class IndividualDeviceAnalyticsView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         args = {}
-        if request.user.groups.filter(name="User").exists() or request.user.groups.filter(name="Admin").exists():
+        if request.user.groups.filter(name="User").exists() or request.user.groups.filter(
+                name="Admin").exists() or request.user.groups.filter(name="SuperAdmin").exists():
             device_id = self.kwargs['device_id']
             graph_data = get_week_data(device_id)
             cars_clicks = ActiveObjects.objects.filter(DeviceID_id=device_id,
@@ -133,7 +140,6 @@ class IndividualDeviceAnalyticsView(TemplateView):
             return render(request, self.template_name, args)
         else:
             return redirect('landing')
-
 
 
 def get_clicks(request):
@@ -282,8 +288,7 @@ def get_week_counts_all(queryset, start_date, end_date):
 
 
 def landing_redirection(request):
-
-    if request.user.groups.filter(name="Admin").exists():
+    if request.user.groups.filter(name="Admin").exists() or request.user.groups.filter(name="SuperAdmin").exists():
         return redirect('AllDeviceAnalytics')
     elif request.user.groups.filter(name="User").exists():
         device_id = UserProfile.objects.get(user=request.user).DeviceID_id
@@ -291,3 +296,18 @@ def landing_redirection(request):
     # update_data()
     else:
         return redirect('login')
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Update session to reflect the new password
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('landing')  # Redirect to profile or any other page
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})

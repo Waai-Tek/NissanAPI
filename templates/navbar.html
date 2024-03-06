@@ -56,11 +56,13 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="profile_a"> Hi, {{ user.get_full_name }}</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: -75px;">
+
+          <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
           <a class="dropdown-item" href="#">
             <form action="{% url 'logout' %}" method="post">
               {% csrf_token %}
-              <button class="btn btn-link" type="submit">Logout</button>
+              <button class="btn btn-link btn-block" type="submit">Logout</button>
             </form>
           </a>
         </div>
