@@ -22,9 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rpz))1ocjzkdug!@*o5$yatq90ewcz@8k@znvio-7ytpd%eyng'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['nissandigitaltables.com','www.nissandigitaltables.com','localhost'] # deployment hosts for server
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'landing'
@@ -91,22 +92,22 @@ DATABASES = {
     #             #    'driver': 'ODBC Driver 17 for SQL Server',
     #             # },
     #        },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Nissan',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'Nissan',
+    #     'NAME': 'nissan',
     #     'USER': 'postgres',
-    #     'PASSWORD': '1234',
+    #     'PASSWORD': 'FYzXTe8W7HsY',
     #     'HOST': 'localhost',
     #     'PORT': '5432',
     # }
-    'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'Nissan',
-            'USER': 'NissanAnalytics',
-            'PASSWORD': 'FYzXTe8W7HsY',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
 }
 
 # Password validation
@@ -144,6 +145,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
+# STATIC_ROOT = '/var/www/static/' #Deploment details (static files path)
 STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
@@ -177,3 +180,10 @@ SWAGGER_SETTINGS = {
     'PERSIST_AUTH': True,
 }
 
+# CSRF_FAILURE_VIEW = 'Analytics.views.csrf_failure_view'
+
+# servers settings to be uncommented after deployment
+# CSRF_TRUSTED_ORIGINS = ['https://nissandigitaltables.com','www.nissandigitaltables.com', 'nissandigitaltables.com']
+#
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SESSION_COOKIE_SECURE = True
