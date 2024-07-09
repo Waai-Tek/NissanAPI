@@ -5,7 +5,8 @@
 {% endblock title %}
 
     {% block css %}
-    
+
+
     <style>
       html{
         scrollbar-width: none;
@@ -24,12 +25,20 @@
           line-height: 1.1;
       }
 
-      .analytics__heading { 
+      .analytics__heading__div {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding-top: 15px;
+        padding-bottom: 20px;
+      }
+      .analytics__heading {
         font-family: Roboto;
         font-size: 20px;
         font-weight: 700;
-        padding-top: 25px;
-        padding-bottom: 10px;
+      }
+      .analytics__heading_date_picker_div {
+        min-width: 365px;
       }
       .analytics__card {
         padding: 5px;
@@ -268,12 +277,26 @@
       }
 
     </style>
-
     {% endblock css %}
     
 
     {% block content %}
-      <p class="analytics__heading my-2 mx-4">{{device_name}} - Analytics</p>
+    <div class="analytics__heading__div">
+        <div>
+            <p class="analytics__heading my-2 mx-4">{{device_name}} - Analytics</p>
+        </div>
+        <div class="analytics__heading_date_picker_div">
+            <!--Datetimepicker Here-->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="icon fa fa-calendar"></i>
+                </span>
+              </div>
+                    <input type="text" class="form-control" placeholder="Select the date" aria-label="Username" aria-describedby="basic-addon1" id="daterange" name="daterange">
+            </div>
+        </div>
+    </div>
     <div x-data="analyticsData" class="analytics py-2 px-2 px-md-4 h-100">
       <div class="row">
         <div class="col-12 col-md-7 col-lg-8 col-xl-9">
@@ -506,7 +529,7 @@
         // Event listener for the button click
         populateTabContent(carName) {
             // Parameters to be sent in the AJAX request
-            var params = {
+             var params = {
                 'device_id': {{ device_id }},
                 'car_name': carName
             };
@@ -646,4 +669,54 @@
     chart.render()
    
   </script>
+
+
+<script>
+    $(function() {
+    // Get today's date
+    var today = new Date();
+
+    // Set time to 00:01:00 of today
+    today.setHours(4, 1, 0, 0);
+
+    // Set time to 23:59:00 of today
+    var endOfDay = new Date();
+    endOfDay.setHours(27, 59, 0, 0);
+
+    // Format dates in 'YYYY-MM-DD HH:mm' format
+    var todayMorning = today.toISOString().slice(0, 16).replace('T', ' ');
+    var endOfDayFormatted = endOfDay.toISOString().slice(0, 16).replace('T', ' ');
+
+    // Initialize the date range picker
+    $('#daterange').daterangepicker({
+        opens: 'left', // Position of the picker
+        autoApply: true, // Auto apply date selection
+        timePicker: true, // Enable time picker
+        timePicker24Hour: true, // Use 24-hour time format
+        timePickerIncrement: 1, // Time increment (in minutes)
+        locale: {
+            format: 'YYYY-MM-DD HH:mm', // Date and time format
+            separator: ' - ', // Separator between start and end dates
+            applyLabel: 'Apply', // Text for apply button
+            cancelLabel: 'Cancel', // Text for cancel button
+            fromLabel: 'From', // Text for start date label
+            toLabel: 'To', // Text for end date label
+            customRangeLabel: 'Custom', // Text for custom date range label
+            weekLabel: 'W', // Text for week label
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'], // Days of the week
+            monthNames: [
+                'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+            ], // Month names
+            firstDay: 1 // Start week on Monday
+        },
+        startDate: todayMorning, // Set 00:01 of today as start date
+        endDate: endOfDayFormatted // Set 23:59 of today as end date
+    }, function(start, end, label) {
+        // Callback function when dates are selected
+        console.log('A date range with time was chosen: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm'));
+        // You can perform further actions here, such as submitting the form or updating data via AJAX
+    });
+});
+
+</script>
 {% endblock js %}
