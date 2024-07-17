@@ -68,7 +68,7 @@
         justify-content: center;
         align-items: center;
       }
-   
+
       .analytics__enq_count__heading .icon{
         font-size: 25px;
         color: #008000;
@@ -194,7 +194,7 @@
             border-radius: 8px;
             font-family: Roboto;
             font-weight: 600;
-            
+
         }
         .keyword_card .heading{
             font-family: Roboto;
@@ -224,23 +224,23 @@
             height: 45px;
             justify-content: center;
             align-items: center;
-            
+
       }
       .keyrefresh .icon{
         font-size: 25px;
         color: #808080;
-        
+
       }
       .trending_term .terms{
         max-height: 413px;
-        overflow-y: auto;     
+        overflow-y: auto;
       }
       .keyword_card .nav-pills{
         display: flex;
         width: 100%;
         justify-content: space-between;
       }
-   
+
       .nav-pills .nav-link{
         border-radius: 0;
         display: flex;
@@ -278,10 +278,10 @@
 
     </style>
     {% endblock css %}
-    
+
 
     {% block content %}
-    <div class="analytics__heading__div px-md-4">
+    <div class="analytics__heading__div">
         <div>
             <p class="analytics__heading my-2 mx-4">{{device_name}} - Analytics</p>
         </div>
@@ -293,7 +293,7 @@
                     <i class="icon fa fa-calendar"></i>
                 </span>
               </div>
-                    <input type="text" class="form-control" placeholder="Select the date" aria-label="Username" aria-describedby="basic-addon1" id="daterange" name="daterange">
+                    <input type="text" class="form-control" placeholder="Select the date" aria-label="Username" aria-describedby="basic-addon1" id="daterange" name="daterange"  data-device-id={{ device_id }} >
             </div>
         </div>
     </div>
@@ -312,7 +312,9 @@
                 </div>
               </div>
               <div class="d-flex since_date align-items-center my-2 my-md-0 ml-auto" style="max-width: fit-content;height:fit-content">
-                <p >Since {{ today }}</p>
+                <p >
+                    From <span style="color: #6987bb;">{{ start_date }}</span> to <span style="color: #6987bb;">{{ end_date }}</span>
+                </p>
                   <button class="icon_wrapper ml-2">
                     <i id="reloadIcon" class="icon fas fa-redo"></i>
                   </button>
@@ -330,7 +332,7 @@
                                         <span class="icon_wrapper mr-3">
                                             <i class="icon fa fa-calculator"></i>
                                         </span>
-                                        <span class="divSpan">Finance click</span> 
+                                        <span class="divSpan">Finance click</span>
                                       </div>
                                     <p class="count">{{ fc_clicks }}</p>
 
@@ -342,7 +344,7 @@
                                         <span class="icon_wrapper mr-3">
                                             <i class="icon fa fa-percent"></i>
                                         </span>
-                                        <span class="divSpan">Offers click</span> 
+                                        <span class="divSpan">Offers click</span>
                                       </div>
                                     <p class="count">{{ oc_clicks }}</p>
                                 </div>
@@ -352,8 +354,8 @@
                                   <div class="divClass1">
                                         <span class="icon_wrapper mr-3">
                                             <i class="icon fa fa-file"></i>
-                                        </span> 
-                                        <span class="divSpan">Brochure Downloads</span> 
+                                        </span>
+                                        <span class="divSpan">Brochure Downloads</span>
                                       </div>
                                     <p class="count">{{ bd_clicks }}</p>
                                 </div>
@@ -364,7 +366,7 @@
                                         <span class="icon_wrapper mr-3">
                                             <i class="icon fa fa-wrench"></i>
                                         </span>
-                                        <span class="divSpan">Service click</span> 
+                                        <span class="divSpan">Service click</span>
                                       </div>
                                     <p class="count">{{ sc_clicks }}</p>
                                 </div>
@@ -376,7 +378,7 @@
           </div>
             <div class="col-12 col-md-5 col-lg-4 col-xl-3 mt-4 mt-md-0">
                 <div class="analytics__card trending_term p-4">
-                  <div class="analytics__enq_count__heading position-relative 
+                  <div class="analytics__enq_count__heading position-relative
                     text-white d-flex justify-content-between align-items-center" style="z-index: 100;">
                      <p>Top Performing Models</p>
                       <span class="icon_wrapper position-relative" style="top:-2px">
@@ -389,13 +391,13 @@
                       {% endfor %}
 
                   </div>
-                  
+
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">&nbsp;</div>
-        
+
             <div class="col-12">&nbsp;</div>
             <div class="col-12">
                 <div class="analytics__card keyword_card px-0 pt-0 pb-3">
@@ -403,14 +405,14 @@
                       {% for car, count in cars_count.items %}
                           <li class="nav-item flex-grow-1" role="presentation">
                                 {% if forloop.counter == 1 %}
-                                <a class="nav-link active" x-on:click="populateTabContent('{{ car }}')" 
+                                <a class="nav-link active" x-on:click="populateTabContent('{{ car }}')"
                                 x-init="populateTabContent('{{ car }}')" id="pills-{{ car }}-tab" data-toggle="pill" href="#pills-{{ car }}"
                                 role="tab" aria-controls="pills-{{ car }}" aria-selected="true" style="border-top-left-radius: 15px;">
                                   <span>{{ car }}</span>
                                   <span>{{ count }}</span>
                                 </a>
                                 {% else %}
-                                  <a class="nav-link" id="pills-{{ car }}-tab" x-on:click="populateTabContent('{{ car }}')" data-toggle="pill" 
+                                  <a class="nav-link" id="pills-{{ car }}-tab" x-on:click="populateTabContent('{{ car }}')" data-toggle="pill"
                                   href="#pills-{{ car }}" role="tab" aria-controls="pills-{{ car }}" aria-selected="false">
                                   <span>{{ car }}</span>
                                   <span>{{ count }}</span>
@@ -459,7 +461,7 @@
                                                   title[i].parentElement.setAttribute('font-size','12px');
                                               }
 
-                                            } 
+                                            }
                                         }"
                                       >
                                         <span x-text="category "></span> <span x-text="graphData[index] "></span>
@@ -485,7 +487,7 @@
     {% endblock content %}
     {% block js %}
   <script>
-   
+
   </script>
   <script>
 
@@ -502,6 +504,10 @@
         var responseData;
         const device_id = {{ device_id }}
         var chart2;
+
+        // Pass the date_list from Django to JavaScript
+        var date_list = {{ date_list|safe }};
+        var apply = {{ apply|yesno:"true,false" }};
 
     document.addEventListener('alpine:init', () => {
 
@@ -522,9 +528,9 @@
           {term:'X-Terra',}
         ],
         graphData:[],
-        categories: [],
+        categories: date_list,
         selectedBar:'',
-        
+
 
         // Event listener for the button click
         populateTabContent(carName) {
@@ -533,15 +539,15 @@
                 'device_id': {{ device_id }},
                 'car_name': carName
             };
-            
+
             const setCategories = (response) => {
                 this.categories = response.keywords
                 this.graphData = response.counts
                 var graphData = response.counts
                 var categories = response.keywords
                 this.getBargraph(graphData, categories, carName)
-                
-                console.log(graphData)
+
+                // console.log(graphData)
             }
             $.ajax({
                 url: "{% url 'get_clicks' %}", // URL to your Django view
@@ -565,7 +571,7 @@
           var options = {
               series: [{
                 data: data
-              }], 
+              }],
               chart: {
                 height: 330,
                 width: data.length   * 200,
@@ -586,12 +592,12 @@
                           title[i].parentElement.setAttribute('font-size','12px');
                         }
 
-                      } 
+                      }
                       setSelectedBar(category)
                     },
-                
+
                 }
-                
+
               },
               plotOptions: {
                 bar: {
@@ -621,60 +627,85 @@
           chart2 = new ApexCharts(document.querySelector("#keyword-"+carName+"-chart"), options);
           chart2.render();
         }
-       
+
       }))
     })
 
     var options = {
-      series: [
-        {
-          name: 'Last Week',
-          data: {{ last_week_data }},
-        },
-        {
-          name: 'This Week',
-          data: {{ this_week_data }},
-        },
-      ],
-      chart: {
-        height: 350,
-        type: 'area',
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      xaxis: {
-        type: 'string',
-        categories: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-        ],
-      },
-      tooltip: {
-        x: {
-          format: 'dd/MM/yy HH:mm',
-        },
-      },
+        series: []
+    };
+
+    if (apply) {
+        options.series.push({
+            name: 'Interactions',
+            data: {{ data_range_data }}
+        });
+        options.xaxis = {
+            type: 'string',
+            categories: date_list
+        };
+    } else {
+        options.series.push(
+            {
+                name: 'Last Week',
+                data: {{ last_week_data }}
+            },
+            {
+                name: 'This Week',
+                data: {{ this_week_data }}
+            }
+        );
+        options.xaxis = {
+            type: 'string',
+            categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        };
     }
 
-    var chart = new ApexCharts(document.querySelector('#chart'), options)
-    chart.render()
-   
-  </script>
+    options.chart = {
+        height: 350,
+        type: 'area'
+    };
+    options.dataLabels = {
+        enabled: false
+    };
+    options.stroke = {
+        curve: 'smooth'
+    };
+    options.tooltip = {
+        x: {
+            format: 'dd/MM/yy HH:mm'
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector('#chart'), options);
+    chart.render();
 
 
-<script>
     $(function() {
+
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
     // Get today's date
     var today = new Date();
+
+
+    // Set the date to January 1st of the current year
+    // today.setMonth(0); // January is month 0 in JavaScript
+    // today.setDate(1);
 
     // Set time to 00:01:00 of today
     today.setHours(4, 1, 0, 0);
@@ -685,7 +716,15 @@
 
     // Format dates in 'YYYY-MM-DD HH:mm' format
     var todayMorning = today.toISOString().slice(0, 16).replace('T', ' ');
+    // var todayMorningFormatted = todayMorning.toISOString().slice(0, 16).replace('T', ' ');
     var endOfDayFormatted = endOfDay.toISOString().slice(0, 16).replace('T', ' ');
+
+
+    // Calculate January 1 of the current year
+    var startOfYear = new Date(today.getFullYear(), 0, 1);
+    // Set time to 00:01:00 of today
+    startOfYear.setHours(4, 1, 0, 0);
+    var startOfYearFormatted = startOfYear.toISOString().slice(0, 16).replace('T', ' ');
 
     // Initialize the date range picker
     $('#daterange').daterangepicker({
@@ -698,7 +737,7 @@
             format: 'YYYY-MM-DD HH:mm', // Date and time format
             separator: ' - ', // Separator between start and end dates
             applyLabel: 'Apply', // Text for apply button
-            cancelLabel: 'Cancel', // Text for cancel button
+            cancelLabel: 'Reset', // Text for cancel button
             fromLabel: 'From', // Text for start date label
             toLabel: 'To', // Text for end date label
             customRangeLabel: 'Custom', // Text for custom date range label
@@ -711,11 +750,66 @@
         },
         startDate: todayMorning, // Set 00:01 of today as start date
         endDate: endOfDayFormatted // Set 23:59 of today as end date
-    }, function(start, end, label) {
+    },
+
+    function(start, end, label) {
         // Callback function when dates are selected
         console.log('A date range with time was chosen: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm'));
         // You can perform further actions here, such as submitting the form or updating data via AJAX
+        var startFormatted = start.format('YYYY-MM-DD HH:mm');
+        var endFormatted = end.format('YYYY-MM-DD HH:mm');
+        var deviceId = $('#daterange').data('device-id');
+
+        var params = {
+                'start': startFormatted,
+                'end': endFormatted,
+                'device_id': deviceId
+            };
+
+        $.ajax({
+            url: "{% url 'date_apply' %}",  // URL to your Django endpoint
+            type: 'POST',
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken') // Include CSRF token from cookies
+            },
+            success: function(response) {
+                console.log('Data sent successfully');
+                location.reload();
+            },
+            error: function(xhr, textStatus, thrownError) {
+                console.error('Error sending data:', thrownError);
+            }
+        });
     });
+
+    // Event listener for the cancel button
+    $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+        picker.setStartDate(startOfYearFormatted);
+        picker.setEndDate(endOfDayFormatted);
+        console.log('The date range picker was reset to: ' + startOfYearFormatted + ' to ' + endOfDayFormatted);
+
+        console.log('Reset button clicked');
+        sendResetTrigger();
+    });
+
+    function sendResetTrigger() {
+            $.ajax({
+                url: "{% url 'reset_trigger' %}",
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                success: function(response) {
+                    console.log('Reset trigger sent successfully');
+                    location.reload();
+                },
+                error: function(xhr, textStatus, thrownError) {
+                    console.error('Error sending reset trigger:', thrownError);
+                }
+            });
+        }
 });
 
 </script>
